@@ -20,12 +20,12 @@ k_nearest = inf(2, k);
 m = size(training_data, 1);
 for i = 1:m
     % Current maximum distance to k neareset neighbors.
-    k_max_index = find(k_nearest == max(k_nearest(2,:)));
+    k_max_index = find(k_nearest(2, :) == max(k_nearest(2,:)));
     k_max_index = k_max_index(1);
     % Distance from training_sample to input.
     % TODO training_sample indexing
     sample_dist_from_input = KLdiv(training_data{i, 1},...
-        training_data{i, 2}, input{1, 1}, input{1, 2});
+        training_data{i, 2}, input{1, 1}, input{1, 2})
     if sample_dist_from_input < k_nearest(2, k_max_index)
         k_nearest(1, k_max_index) = i;
         k_nearest(2, k_max_index) = sample_dist_from_input;
@@ -36,30 +36,35 @@ end
 field_counts = cell(k, 2);
 field_index = field_num + 2;
 for i = 1:m
-    % First search to see if the field has already been seen, if so increment.
-    num_field_counts = size(field_counts, 1);
-    for j = 1:num_field_counts
+    % First search to see if the field has already been seen, if so
+    % increment.
+    inFieldCounts = 0;
+    %field_counts{1,1}
+    %field_counts{1,2}
+    for j = 1:k         
         if strcmp(field_counts{j, 1}, training_data{i, field_index})
+            inFieldCounts = 1;
             field_counts{j, 2} = field_counts{j, 2} + 1;
-        else
-            field_counts{j, 1} = training_data{i, field_index};
-            field_counts{j, 2} = 1;
+            break;
         end
+    end
+    if (inFieldCounts ==0) 
+        field_counts{j, 1} = training_data{i, field_index};
+        field_counts{j, 2} = 1;
     end
 end
 
 % Determine the most popular of the k nearest neighbors.
-num_field_counts = size(field_counts, 1);
 max_field_count = 0;
 max_field_index = 0;
-for i = 1:num_field_counts
+for i = 1:k
     if field_counts{i, 2} > max_field_count
-        field_counts{i, 2} = max_field_count;
-        max_field_index = 2;
+        max_field_count = field_counts{i, 2};
+        max_field_index = i;
     end
 end
-
+%max_field_index;
 % Return the most popular class among the k nearest neighbors
-class = field_counts{max_field_index, 1}
+class = field_counts{max_field_index, 1};
 
 end
