@@ -15,20 +15,30 @@ function [ class ] = knn(training_data, input, field_num, k)
 %
 % See also: mfcc.m, mfcc_test_data.m
 
+input{1,1}
+
 % Top row is index in training_data, bottom is distance to input.
 k_nearest = inf(2, k);
-m = size(training_data, 1);
+m = size(training_data, 1)
 for i = 1:m
     % Current maximum distance to k neareset neighbors.
     k_max_index = find(k_nearest(2, :) == max(k_nearest(2,:)));
     k_max_index = k_max_index(1);
     % Distance from training_sample to input.
-    % TODO training_sample indexing
     sample_dist_from_input = KLdiv(training_data{i, 1},...
         training_data{i, 2}, input{1, 1}, input{1, 2});
+
+    % TODO remove debug
+    fprintf('The %d th training data has distance %f ? %f (current max neareset)\n', i, sample_dist_from_input, k_nearest(2, k_max_index));
+
     if sample_dist_from_input < k_nearest(2, k_max_index)
+        % TODO remove debug
+        training_data{i, 1}
+        training_data{i, field_num + 2}
+        fprintf('Since %d th training data has dist %f < %f so we are replacing with above\n', i, sample_dist_from_input, k_nearest(2, k_max_index));
+
         k_nearest(1, k_max_index) = i;
-        k_nearest(2, k_max_index) = sample_dist_from_input;
+        k_nearest(2, k_max_index) = sample_dist_from_input
     end
 end
 
@@ -46,8 +56,8 @@ for i = 1:k
         if strcmp(field_counts{j, 1}, training_data{k_nearest_index, field_index})
             inFieldCounts = 1;
             field_counts{j, 2} = field_counts{j, 2} + 1;
-            field_counts{1,1}
-            field_counts{1,2}
+            % field_counts{1,1}
+            % field_counts{1,2}
             break;
         end
     end
@@ -55,6 +65,8 @@ for i = 1:k
         field_counts{new_field, 1} = training_data{k_nearest_index, field_index};
         field_counts{new_field, 2} = 1;
         new_field = new_field + 1;
+        % field_counts{1,1}
+        % field_counts{1,2}
     end
 end
 

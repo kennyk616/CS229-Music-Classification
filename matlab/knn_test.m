@@ -7,7 +7,7 @@ dir_listing = dir(input_dir_path);
 input_full_path = GetFullPath(input_dir_path);
 
 NUM_BINS = 22;
-NUM_FRAMES = 1000;
+NUM_FRAMES = 200;
 NUM_COEFF = 15;
 STEP_TIME = 0.02;
 
@@ -18,11 +18,7 @@ offset = 0;
 flag = 0;
 k = 1;
 
-% TODO: WCHANGE THIS BACK
-num_files = 1;
-
-%TODO: change it to 1 : num_files
-for i = 3:3
+for i = 1:num_files
     file_name = dir_listing(i).name;
     file_name_len = length(file_name);
     if file_name_len > 4 && strcmp(file_name(file_name_len - 2: file_name_len), 'mp3')        
