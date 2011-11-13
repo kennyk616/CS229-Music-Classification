@@ -1,6 +1,19 @@
 % vim: set tabstop=4 shiftwidth=4 :
 function [ class ] = knn(training_data, input, field_num, k)
-% CLASS = KNN(TRAINING_
+% CLASS = KNN(TRAINING_DATA, INPUT, FIELD_NUM, K)
+%
+% CLASS is the class which our algorithm determined input falls into.
+% TRAINING_DATA is the gaussians and metadata for each song in the training
+% data. This should be the same format as data written by mfcc_test_data.m.
+% INPUT is the gaussian for the song we wish to classify.
+% FIELD_NUM is the <index of the field>-2 in TRAINING_DAT by which we wish to
+% classify.
+% K is the number of nearest neighbors to keep track of.
+%
+% Runs a k nearest neighbors algorithm to determine what class input falls
+% into. Returns said class.
+%
+% See also: mfcc.m, mfcc_test_data.m
 
 % Top row is index in training_data, bottom is distance to input.
 k_nearest = inf(2, k);
