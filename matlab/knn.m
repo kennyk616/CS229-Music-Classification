@@ -8,7 +8,7 @@ m = size(training_data, 1);
 for i = 1:m
     % Current maximum distance to k neareset neighbors.
     k_max_index = find(k_nearest == max(k_nearest));
-    k_max_index = curr_max[1];
+    k_max_index = k_max_index(1);
     % Distance from training_sample to input.
     % TODO training_sample indexing
     sample_dist_from_input = KL_div(training_sample{i, 1},
