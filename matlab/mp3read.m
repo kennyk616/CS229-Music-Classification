@@ -58,7 +58,7 @@ function [Y,FS,NBITS,OPTS] = mp3read(FILE,N,MONO,DOWNSAMP,DELAY)
 %
 %   See also mp3write, wavread.
 
-% $Header: /Users/dpwe/matlab/columbiafns/RCS/mp3read.m,v 1.6 2009/12/08 16:35:23 dpwe Exp dpwe $
+% $Header: /Users/dpwe/matlab/columbiafns/RCS/mp3read.m,v 1.7 2010/04/09 18:13:00 dpwe Exp dpwe $
 
 % 2003-07-20 dpwe@ee.columbia.edu  This version calls mpg123.
 % 2004-08-31 Fixed to read whole files correctly
@@ -173,6 +173,12 @@ if isempty(ext)
   FILE = [FILE, '.mp3'];
 end
 
+%%%%% maybe expand ~ %%%%%%
+if FILE(1) == '~'
+  FILE = [getenv('HOME'),FILE(2:end)];
+end
+
+
 if ~OVERNET
   %%%%%% Probe file to find format, size, etc. using "mp3info" utility
   cmd = ['"',mp3info, '" -r m -p "%Q %u %b %r %v * %C %e %E %L %O %o %p" "', FILE,'"'];
@@ -234,12 +240,17 @@ if SR == 16000 && downsamp == 4
   error('mpg123 will not downsample 16 kHz files by 4 (only 2)');
 end
 
+% from libmpg123/frame.h
+GAPLESS_DELAY = 529;
+
 % process or set delay
 if nargin < 5
 
   if MPG123059
     mpg123delay44kHz = 2257;  % empirical delay of lame/mpg123 loop
-    mpg123delay16kHz = 1105;  % empirical delay of lame/mpg123 loop for 16 kHz sampling
+    mpg123delay16kHz = 1105;  % empirical delay of lame/mpg123 loop
+                              % for 16 kHz sampling - one 1152
+                              % sample frame less??
     if SR == 16000
       rawdelay = mpg123delay16kHz;
     else
@@ -270,7 +281,11 @@ end
 
 % Size-reading version
 if strcmp(FMT,'size') == 1
-   Y = [floor(smpspfrm*nframes/downsamp)-delay, nchans];
+  if MPG123059
+    Y = [floor(smpspfrm*nframes/downsamp)-delay, nchans];
+  else
+    Y = [floor(smpspfrm*nframes/downsamp)-GAPLESS_DELAY, nchans];
+  end    
 else
 
   % Temporary file to use
@@ -314,8 +329,8 @@ else
   %w = 
   mysystem(cmd);
 
-  % Load the data
-  Y = wavread(tmpfile);
+  % Load the data (may update FS if it was based on a guess previously)
+  [Y,FS] = wavread(tmpfile);
 
 %  % pad delay on to end, just in case
 %  Y = [Y; zeros(delay,size(Y,2))];
