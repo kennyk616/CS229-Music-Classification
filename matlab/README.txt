@@ -1,0 +1,12 @@
+---- README for Matlab Functions/Scripts ----
+
+
+= MFCC.M =
+
+    * Calls mp3read.m, melbankm.m
+    * mp3read.m requires 2 external binaries, mpg123 and mp3info.
+    * Can download binaries from http://labrosa.ee.columbia.edu/matlab/mp3read.html
+
+= ML_INITIAL.M =
+
+    * Tests mp3tags_to_csv.py, mfcc.m

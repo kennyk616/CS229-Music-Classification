@@ -1,8 +1,8 @@
-function MFCC_matrix = mfcc(filename, nbins, nframes)
-% MEL_COEFF = MFCC(FILENAME)
+function MFCC_matrix = mfcc(filename, nframes, nbins)
+% MFCC_MATRIX = MFCC(FILENAME, NFRAMES, NBINS)
 %
-% FILENAME is a string specifying a .wav or .au file.
-% MFCC_matrix is the nframes-by-nbins matrix of MFCC coefficients.
+% FILENAME is a string specifying a .mp3 file.
+% MFCC_MATRIX is the nframes-by-nbins matrix of MFCC coefficients.
 % NFRAMES is how many frames (20 ms samples) of the song to use.
 % NBINS is how many mel frequency bins to map each frame spectrum to.
 %
@@ -21,18 +21,18 @@ function MFCC_matrix = mfcc(filename, nbins, nframes)
 %
 % Example:
 % nframes = 1000; nbins = 20;
-% filename = 'metal.00000.au';
+% filename = 'songname.mp3';
 % MFCC_matrix = mfcc(filename, nframes, nbins);
 %
-% For 30 sec audio file, analysis time of ~0.7 sec, given nframes=1000,
+% Notes:
+% - Can also support .wav or .au audio file.
+% - For 30 sec audio file, analysis time of ~0.7 sec, given nframes=1000,
 % nbins=20.
 %
-% See also: melbankm.m
+% See also: melbankm.m, mp3read.m
 %
 
-
-[s, fs] = auread(filename);
-% ^ TO DO: read in mp3 files 
+[s, fs] = mp3read(filename);
 
 % tic; fprintf('Analysis time...'); 
 
@@ -42,6 +42,8 @@ function MFCC_matrix = mfcc(filename, nbins, nframes)
 %     [s, fs] = wavread(filename);
 % elseif (strcmp(format, 'au'))
 %     [s, fs] = auread(filename);
+% elseif (strcmp(format, 'p3'))
+%     [s, fs] = mp3read(filename);
 % else 
 %     error('Wrong input. Use a .wav or .au audio file');
 % end
