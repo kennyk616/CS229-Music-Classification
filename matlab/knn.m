@@ -1,6 +1,6 @@
 % vim: set tabstop=4 shiftwidth=4 :
 function [ class ] = knn(training_data, input, field_num, k)
-% TODO docs
+% CLASS = KNN(TRAINING_
 
 % Top row is index in training_data, bottom is distance to input.
 k_nearest = inf(2, k);
@@ -20,7 +20,7 @@ for i = 1:m
 end
 
 % Count occurences of the field we're classifying
-field_counts = {};
+field_counts = cell(k, 2);
 field_index = field_num + 2;
 for i = 1:m
     % First search to see if the field has already been seen, if so increment.
