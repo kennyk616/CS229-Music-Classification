@@ -7,7 +7,7 @@ A script that takes reads the ID3 tag data from a collection of MP3 files and
 stores the data in a CSV file. Any empty tags will be written as '' to the CSV
 file.
 
-Usage: mp3tags_to_csv.py [optional options] -f files
+Usage: mp3tags_to_csv.py [optional options] files
 
 Options:
     -a: Include artist field in CSV file. False by default.
