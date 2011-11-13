@@ -20,12 +20,12 @@ k_nearest = inf(2, k);
 m = size(training_data, 1);
 for i = 1:m
     % Current maximum distance to k neareset neighbors.
-    k_max_index = find(k_nearest == max(k_nearest));
+    k_max_index = find(k_nearest == max(k_nearest(2,:)));
     k_max_index = k_max_index(1);
     % Distance from training_sample to input.
     % TODO training_sample indexing
-    sample_dist_from_input = KL_div(training_sample{i, 1},
-            training_sample{i, 2}, input{1, 1}, input{1, 2});
+    sample_dist_from_input = KLdiv(training_data{i, 1},...
+        training_data{i, 2}, input{1, 1}, input{1, 2});
     if sample_dist_from_input < k_nearest(2, k_max_index)
         k_nearest(1, k_max_index) = i;
         k_nearest(2, k_max_index) = sample_dist_from_input;

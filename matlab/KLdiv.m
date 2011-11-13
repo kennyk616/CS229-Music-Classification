@@ -28,8 +28,8 @@ end
 
 trcov_pq = trace(cov2\cov1);
 trcov_qp = trace(cov1\cov2);
-musq_pq = (mu1-mu2)'*(cov2\(mu1-mu2));
-musq_qp = (mu2-mu1)'*(cov1\(mu2-mu1));
+musq_pq = (mu1-mu2)*(cov2\(mu1-mu2)');
+musq_qp = (mu2-mu1)*(cov1\(mu2-mu1)');
 
 twoKL_pq = logcov_pq + trcov_pq + musq_pq - d;
 twoKL_qp = logcov_qp + trcov_qp + musq_qp - d;
