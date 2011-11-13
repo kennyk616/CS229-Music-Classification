@@ -36,10 +36,10 @@ function MFCC_matrix = mfcc(filename, nbins, nframes, ncoeff, step_time)
 % - For 30 sec audio file, analysis time of ~0.7 sec, given nframes=1000,
 % nbins=20, ncoeff=20, step_time=0.030.
 %
-% See also: melbankm.m, mp3read.m
+% See also: melbankm.m, mp3read.m, GetFullPath.m
 %
 
-pathdir = '/music/';
+pathdir = GetFullPath('music\');
 [s, fs] = mp3read([pathdir filename]);
 
 % tic; fprintf('Analysis time...'); 
