@@ -17,7 +17,12 @@ classified = cell(num_files, 2);
 offset = 0;
 flag = 0;
 k = 1;
-for i = 1:num_files
+
+% TODO: WCHANGE THIS BACK
+num_files = 1;
+
+%TODO: change it to 1 : num_files
+for i = 3:3
     file_name = dir_listing(i).name;
     file_name_len = length(file_name);
     if file_name_len > 4 && strcmp(file_name(file_name_len - 2: file_name_len), 'mp3')        
