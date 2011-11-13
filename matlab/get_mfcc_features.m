@@ -1,4 +1,4 @@
-function mfcc_cells = get_mfcc_features(CSV_FILE_NAME, NUM_BINS, NUM_FRAMES, NUM_COEFF, STEP_TIME)
+function mfcc_cells = get_mfcc_features(CSV_FILE_PATH, NUM_BINS, NUM_FRAMES, NUM_COEFF, STEP_TIME)
 % MFCC_CELLS = GET_MFCC_FEATURES(CSV_FILE_NAME, NUM_BINS, NUM_FRAMES,
 %              NUM_COEFF, STEP_TIME);
 %
@@ -12,7 +12,7 @@ function mfcc_cells = get_mfcc_features(CSV_FILE_NAME, NUM_BINS, NUM_FRAMES, NUM
 % See also: mfcc.m, mp3tags_to_csv.py
 %
 
-fid = fopen(CSV_FILE_NAME);
+fid = fopen(CSV_FILE_PATH);
 csv_data = textscan(fid, '%s %s %s %s', 'Delimiter', ',', 'CollectOutput', 1);
 csv_data = csv_data{1};
 fclose(fid);
