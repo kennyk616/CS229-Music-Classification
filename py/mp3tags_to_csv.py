@@ -124,7 +124,7 @@ for ifile_path in ifile_paths:
         if ifile_ext.lower() != '.mp3':
             continue
         # Write filename and rest of fields separated by commas.
-        ofile.write(ifile_name)
+        ofile.write(path.abspath(ifile_name))
         ifile = EasyID3(path.abspath(ifile_name))
         for tag in tags:
             try:
