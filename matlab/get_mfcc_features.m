@@ -13,7 +13,7 @@ function mfcc_cells = get_mfcc_features(CSV_FILE_PATH, NUM_BINS, NUM_FRAMES, NUM
 %
 
 fid = fopen(CSV_FILE_PATH);
-csv_data = textscan(fid, '%s %s %s %s', 'Delimiter', ',', 'CollectOutput', 1);
+csv_data = textscan(fid, '%s %s %s %s', 'Delimiter', '|', 'CollectOutput', 1);
 csv_data = csv_data{1};
 fclose(fid);
 
