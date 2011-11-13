@@ -1,6 +1,6 @@
 %test
 
-CSV_FILE_NAME = 'test.csv';
+CSV_FILE_NAME = '/../py/output.csv';
 NUM_BINS = 22;
 NUM_FRAMES = 1000;
 
