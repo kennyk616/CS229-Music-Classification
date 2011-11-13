@@ -39,8 +39,8 @@ function MFCC_matrix = mfcc(filename, nbins, nframes, ncoeff, step_time)
 % See also: melbankm.m, mp3read.m, GetFullPath.m
 %
 
-pathdir = GetFullPath('music\');
-[s, fs] = mp3read([pathdir filename]);
+%pathdir = GetFullPath('../music/');
+[s, fs] = mp3read(filename);
 
 % tic; fprintf('Analysis time...'); 
 
@@ -64,7 +64,7 @@ frame_len = floor(fs*frame_time);  % # samples/frame
 % step_time = 0.010;          % # seconds/frame step
 step_len = floor(fs*step_time);    % # samples/frame step
 
-MFCC_matrix = zeros(nframes, nbins);
+MFCC_matrix = zeros(nframes, ncoeff);
 
 window = hamming(frame_len);
 stop = 1+floor(fft_len/2);  % 257
@@ -73,11 +73,11 @@ for i = 1:nframes
     first = (i-1)*step_len + 1;
     last = (i-1)*step_len + frame_len;
     f = s(first:last);
-    f = f.*window;
+    f = f*window;
     f = fft(f, frame_len);
     mel_bins = melbankm(nbins, fft_len, fs);
-    f = abs(f(1:stop)).^2;
-    m = log10(mel_bins*f);
+    f = abs(f(1:stop)).^2; 
+    m = log10(mel_bins*f');
     m = dct(m);          % dim(m): nbins x 1
     m = m(1:ncoeff);
     MFCC_matrix(i, :) = m';

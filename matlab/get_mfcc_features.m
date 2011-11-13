@@ -20,9 +20,9 @@ fclose(fid);
 numRows = size(csv_data, 1);
 mfcc_cells = cell(numRows, 2);
 
-for row = 1:numRows
+for row = 2:numRows
     cur_song = csv_data(row, :);
-    song_file_name = cur_song(1, 1);
+    song_file_name = cell2mat(cur_song(1, 1));
     mfcc_mat = mfcc(song_file_name, NUM_BINS, NUM_FRAMES, NUM_COEFF, STEP_TIME);  
     mfcc_cells{row, 1} = mean(mfcc_mat);
     mfcc_cells{row, 2} = cov(mfcc_mat);
