@@ -72,7 +72,7 @@ window = hamming(frame_len);
 stop = 1+floor(fft_len/2);  % 257
 
 [x, y] = size(s);
-begin = x/2;
+begin = floor(x/2);
 
 for i = 1:nframes
     first = begin + (i-1)*step_len + 1;

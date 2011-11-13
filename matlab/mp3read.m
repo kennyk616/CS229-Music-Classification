@@ -99,17 +99,21 @@ rmcmd = 'rm';
 
 %%%%%% Location of the binaries - attempt to choose automatically
 %%%%%% (or edit to be hard-coded for your installation)
-ext = lower(computer);
+ext = strcat('.', lower(computer));
 if ispc
-  ext = 'exe';
+  ext = '.exe';
   rmcmd = 'del';
+end
+if ~ismac && ~ispc
+  ext = '';
+  path = '';
 end
 % mpg123-0.59 inserts silence at the start of decoded files, which
 % we compensate.  However, this is fixed in mpg123-1.9.0, so 
 % make this flag 1 only if you have mpg123-0.5.9
 MPG123059 = 0;
-mpg123 = fullfile(path,['mpg123.',ext]);
-mp3info = fullfile(path,['mp3info.',ext]);
+mpg123 = fullfile(path,['mpg123',ext]);
+mp3info = fullfile(path,['mp3info',ext]);
 
 %%%%% Check for network mode
 if length(FILE) > 6 && (strcmp(lower(FILE(1:7)),'http://') == 1 ...
