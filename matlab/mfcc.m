@@ -39,7 +39,8 @@ function MFCC_matrix = mfcc(filename, nbins, nframes, ncoeff, step_time)
 % See also: melbankm.m, mp3read.m
 %
 
-[s, fs] = mp3read(filename);
+pathdir = '/music/';
+[s, fs] = mp3read([pathdir filename]);
 
 % tic; fprintf('Analysis time...'); 
 
