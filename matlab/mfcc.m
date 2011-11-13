@@ -41,7 +41,9 @@ function MFCC_matrix = mfcc(filename, nbins, nframes, ncoeff, step_time)
 
 %%pathdir = GetFullPath('../music/');
 %[s, fs] = mp3read([pathdir filename]);
-[s, fs] = mp3read(filename);
+[slength, channels] = mp3read(filename, 'size');
+offset = floor(slength/4);
+[s, fs] = mp3read(filename, [offset slength-offset]);
 
 
 % tic; fprintf('Analysis time...'); 
