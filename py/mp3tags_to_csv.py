@@ -131,7 +131,7 @@ for ifile_path in ifile_paths:
                 tag_string = ifile[tag][0]
             except KeyError:
                  tag_string = ''
-            ofile.write(', %s' % tag_string)
+            ofile.write('|%s' % tag_string)
         ofile.write('\n')
 ofile.close()
 print 'Done.'
