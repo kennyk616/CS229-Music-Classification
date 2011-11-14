@@ -15,26 +15,22 @@ testCell = cell(1, 2);
 num_files = size(dir_listing, 1);
 classified = cell(num_files, 2);
 offset = 0;
-flag = 0;
-k = 1;
+index = 0;
+k = 3;
+field_num = 3; %% 1: title, 2: artist, 3: genre
 
 for i = 1:num_files
     file_name = dir_listing(i).name;
     file_name_len = length(file_name);
-    if file_name_len > 4 && strcmp(file_name(file_name_len - 2: file_name_len), 'mp3')        
-        flag = 1;
+    if file_name_len > 4 && strcmp(file_name(file_name_len - 2: file_name_len), 'mp3') 
+        index = index + 1;
         mfcc_matrix = mfcc([input_full_path file_name], NUM_BINS, NUM_FRAMES, NUM_COEFF, STEP_TIME);
         testCell{1, 1} = mean(mfcc_matrix);
         testCell{1, 2} = cov(mfcc_matrix);
-        field_num = 3; %% 1: title, 2: artist, 3: genre
 
         class = knn(mfcc_cells, testCell, field_num, k);
-        classified{i - offset, 1} = file_name;
-        classified{i - offset, 2} = class;
-    else
-        if flag ==0
-            offset = offset + 1;
-        end
+        classified{index, 1} = file_name;
+        classified{index, 2} = class;
     end
 end
 
