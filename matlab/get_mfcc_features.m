@@ -21,6 +21,7 @@ fclose(fid);
 mfcc_cells = cell(numRows-1, 1 + numCols);
 
 for row = 2:numRows
+    fprintf('song # %d\n', row);
     cur_song = csv_data(row, :);
     song_file_name = cell2mat(cur_song(1, 1));
     mfcc_mat = mfcc(song_file_name, NUM_BINS, NUM_FRAMES, NUM_COEFF, STEP_TIME);  
@@ -29,6 +30,7 @@ for row = 2:numRows
     for col = 3:numCols + 1
         mfcc_cells{row-1, col} = csv_data(row, col-1);
     end
+    fprintf('\n');
 end
 
 end

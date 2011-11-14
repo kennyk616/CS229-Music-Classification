@@ -1,7 +1,7 @@
 load mfcc_test_data;
 
 %path of the music file
-input_dir_path = '../music/';
+input_dir_path = '../testing music/';
 dir_listing = dir(input_dir_path);
 
 input_full_path = GetFullPath(input_dir_path);
@@ -16,7 +16,7 @@ num_files = size(dir_listing, 1);
 classified = cell(num_files, 2);
 offset = 0;
 index = 0;
-k = 3;
+k = 7;
 field_num = 3; %% 1: title, 2: artist, 3: genre
 
 for i = 1:num_files
@@ -34,4 +34,8 @@ for i = 1:num_files
     end
 end
 
-classified
+fprintf('classification:\n');
+fprintf('-------------------------\n');
+for i = 1 : index
+    fprintf('title: %s, genre: %s\n', classified{i,1}, classified{i,2}{1});
+end
