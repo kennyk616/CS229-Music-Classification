@@ -80,15 +80,10 @@ for i = 1:NUM_FRAMES
     first = begin + (i-1)*step_len + 1;
     last = begin + (i-1)*step_len + frame_len;
     f = s(first:last);
-    %in song 67, Sam Hart - Mario Kart Love Song
-    %f is a vertical vector for some reason. 
-    %in the rest f is a horizontal vector. I added this as a quick fix
-    %but we should prob investigate
     heightF = size(f, 1);
     widthF = size(f, 2);
     if (heightF > widthF)
         f = f.*window;
-        fprintf('f is a vertical vector\n');
     else
         f = f'.*window;
     end
