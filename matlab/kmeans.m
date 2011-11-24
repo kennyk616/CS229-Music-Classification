@@ -1,9 +1,9 @@
-function [clusters, centroids] = kmeans(mfcc, k)
-% [CLUSTERS, CENTROIDS] = KMEANS(MFCC, K)
+function [clusters, centroids] = kmeans(mfcc, k, num_iter)
+% [CLUSTERS, CENTROIDS] = KMEANS(MFCC, K, NUM_ITER)
 %
 % k-means clustering (unsupervised learning)
 %
-% NUM_GENRES - default at 5 genres
+% k is number of genres to cluster songs into
 % 
 % Algorithm:
 %    1. init cluster centroids (mu)
@@ -11,24 +11,24 @@ function [clusters, centroids] = kmeans(mfcc, k)
 %    3. update centroids to be mean of its assigned songs
 %    4. repeat 2-3 until convergence
 %
-% See also: KLdiv.m, mfcc_test_data.mat, get_mfcc_features.m
+% See also: kmeans_test.m, KLdiv.m, mfcc_test_data.mat, get_mfcc_features.m
 %
 % Example:
 %     load mfcc_test_data.mat
 %     mfcc = mfcc_cells;
-%     k = 5;
-%     [clusters, centroids] = kmeans(mfcc, k);
+%     k = 3; num_iter = 50;
+%     [clusters, centroids] = kmeans(mfcc, k, num_iter);
+%
 
 num_songs = size(mfcc,1);  % # songs
 
 % initialize centroids to random songs
 centroids = mfcc(ceil(rand(1,k)*num_songs),1:2);
 allDist = zeros(1, k);
-clusters = cell(1, k);
-count = 0;  max_count = 20;
-% TO DO: change the while condition
-while (count < max_count)  % larger error/faster, pick empirically
+count = 0;  %max_count = num_iter;
+while (count < num_iter)  % larger error/faster, pick empirically
     oldcentroids = centroids;
+    clusters = cell(1, k);
     % assign data to centroids
     for song = 1:num_songs
         % calculate dist from song to each centroid
