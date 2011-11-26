@@ -13,7 +13,7 @@ num_categories = length(training_data);
 %the i'th cell of training data.
 m = zeros(1, num_categories);
 for i = 1:num_categories
-    m(i) = size(training_data(i), 1);
+    m(i) = size(training_data{i}, 1);
 end
 
 %populate dag_model, a cell matrix of liblinear models.
