@@ -35,7 +35,7 @@ function MFCC_matrix = mfcc(song_file_name, NUM_BINS, NUM_FRAMES, NUM_COEFF, STE
 % - For 30 sec audio file, analysis time of ~0.7 sec, given NUM_FRAMES=1000,
 % NUM_BINS=20, NUM_COEFF=20, STEP_TIME=0.030.
 %
-% See also: melbankm.m, mp3read.m, GetFullPath.m
+% See also: melbankm.m, mp3read.m, GetFullPath.m, mfcc_audio_test.m
 %
 
 %%pathdir = GetFullPath('../music/');
@@ -43,20 +43,25 @@ function MFCC_matrix = mfcc(song_file_name, NUM_BINS, NUM_FRAMES, NUM_COEFF, STE
 
 % tic; fprintf('Analysis time...'); 
 
+NUM_SEC = 10;  % take a full 10-second sample (then split into 20ms frames)
+
 format = song_file_name(end-1:end);
 
 if (strcmp(format, 'av')) 
-    [slength, ~] = wavread(song_file_name, 'size');
-    offset = floor(slength/4);
-    [s, fs] = wavread(song_file_name, [offset slength-offset]);
+    slength = wavread(song_file_name, 'size');
+    offset = floor(slength(1,1)/3);
+    [~, fs] = wavread(song_file_name, 1);
+    [s, fs] = wavread(song_file_name, [offset offset+fs*NUM_SEC]);
 elseif (strcmp(format, 'au'))
-    [slength, ~] = auread(song_file_name, 'size');
-    offset = floor(slength/4);
-    [s, fs] = auread(song_file_name, [offset slength-offset]);
+    slength = auread(song_file_name, 'size');
+    offset = floor(slength(1,1)/3);
+    [~, fs] = auread(song_file_name, 1);
+    [s, fs] = auread(song_file_name, [offset offset+fs*NUM_SEC]);
 elseif (strcmp(format, 'p3'))
-    [slength, ~] = mp3read(song_file_name, 'size');
-    offset = floor(slength/4);
-    [s, fs] = mp3read(song_file_name, [offset slength-offset]);
+    slength = mp3read(song_file_name, 'size');
+    offset = floor(slength(1,1)/3);
+    [~, fs] = mp3read(song_file_name, [offset offset+1]);
+    [s, fs] = mp3read(song_file_name, [offset offset+fs*NUM_SEC]);
 else 
     error('Wrong filename input. Use a .mp3, .wav, or .au audio file');
 end
@@ -74,7 +79,7 @@ MFCC_matrix = zeros(NUM_FRAMES, NUM_COEFF);
 window = hamming(frame_len);
 stop = 1+floor(fft_len/2);  % 257
 
-[x, y] = size(s);
+[x, ~] = size(s);
 begin = floor(x/2);
 
 for i = 1:NUM_FRAMES
