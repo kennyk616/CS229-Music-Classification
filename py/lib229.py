@@ -64,7 +64,7 @@ def parse_args(doc, allowed_tags=[]):
         arg = sys.argv[j]
         if arg == '-o':
             ofile_name = sys.argv[j + 1] if len(sys.argv) > j else None
-            if ofile[0] == '-' or ofile is None:
+            if ofile_name[0] == '-' or ofile_name is None:
                 print 'No output file specified.'
                 sys.exit()
         if arg[0] == '-':
