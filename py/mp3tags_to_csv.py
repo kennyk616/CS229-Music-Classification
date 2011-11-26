@@ -51,7 +51,7 @@ if ofile is None:
     sys.exit()
 ofile.write('filename')
 for i in xrange(len(tags)):
-    ofile.write(', %s' % tags[i])
+    ofile.write('|%s' % tags[i])
 ofile.write('\n')
 
 # Iterate over input files, writing their filename and tags.

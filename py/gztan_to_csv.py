@@ -46,8 +46,8 @@ if ofile is None:
     print 'Unable to open output file.'
     sys.exit()
 ofile.write('filename')
-for i in xrange(len(tags)):
-    ofile.write(', %s' % tags[i])
+for i in xrange(len(allowed_tags)):
+    ofile.write('|%s' % allowed_tags[i])
 ofile.write('\n')
 
 # Iterate over input files, writing their filename and genre.
