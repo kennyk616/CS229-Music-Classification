@@ -17,7 +17,7 @@ max_all = 0;
 
 %scaling input
 for i = 1 : m
-    [nn_input(i, :) cur_max] = format_NN_input(mfcc_cells{i, 1}, ...
+    [nn_input(i, :) cur_max] = format_mfcc_to_vector(mfcc_cells{i, 1}, ...
         mfcc_cells{i, 2}, NUM_COEFF, num_features);    
 
     if(cur_max > max_all)
