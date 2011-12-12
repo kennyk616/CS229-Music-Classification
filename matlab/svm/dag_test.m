@@ -7,7 +7,7 @@ function dag_test( index, retrain )
 
 addpath('../');
 
-TRAINING_FILE_PATH = GetFullPath('../../py/train.csv');
+TRAINING_FILE_PATH = GetFullPath('../../py/train400.csv');
 NUM_BINS = 22;
 NUM_FRAMES = 200;
 NUM_COEFF = 15;
@@ -73,7 +73,7 @@ end % -- Train DAG --
 
 
 % -- Test DAG --
-TEST_FILE_PATH = GetFullPath('../../py/test.csv');
+TEST_FILE_PATH = GetFullPath('../../py/test400.csv');
 test_features = get_mfcc_features(TEST_FILE_PATH, NUM_BINS, NUM_FRAMES, ...
         NUM_COEFF, STEP_TIME);
 feature_len = numel(test_features{1,1}) ...
