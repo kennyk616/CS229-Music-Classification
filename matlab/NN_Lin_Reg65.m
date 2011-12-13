@@ -6,6 +6,8 @@
 %
 %   nn_input - input data.
 %   nn_output - target data.
+load nn_input_training_data65;
+load nn_output_training_data65;
 
 inputs = nn_input';
 targets = nn_output';
