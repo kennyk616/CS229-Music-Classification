@@ -3,30 +3,35 @@ function [clusters, centroids] = kmeans(mfcc, k, num_iter)
 %
 % k-means clustering (unsupervised learning)
 %
-% k is number of genres to cluster songs into
-% 
+% MFCC is cell matrix of a set of songs to train on
+% K is number of genres to cluster songs into
+% NUM_ITER is the number of iterations to update centroids
+% CLUSTERS are the song indices in each cluster
+% CENTROIDS are the mu and covariance matrices for each cluster
+%
 % Algorithm:
 %    1. init cluster centroids (mu)
 %    2. assign songs to closest centroid (KL "distance")
 %    3. update centroids to be mean of its assigned songs
 %    4. repeat 2-3 until convergence
 %
-% See also: kmeans_test.m, KLdiv.m, mfcc_test_data.mat, get_mfcc_features.m
+% See also: kmeans_test.m, kmeans_eval.m, KLdiv.m
 %
 % Example:
 %     load mfcc_test_data.mat
 %     mfcc = mfcc_cells;
-%     k = 3; num_iter = 50;
+%     k = 4; num_iter = 10;
 %     [clusters, centroids] = kmeans(mfcc, k, num_iter);
 %
 
 num_songs = size(mfcc,1);  % # songs
 
 % initialize centroids to random songs
-centroids = mfcc(ceil(rand(1,k)*num_songs),1:2);
+% centroids = mfcc(ceil(rand(1,k)*num_songs),1:2);
+centroids = mfcc([35 105 175 245],1:2);
 allDist = zeros(1, k);
-count = 0;  %max_count = num_iter;
-while (count < num_iter)  % larger error/faster, pick empirically
+count = 0;  % num_iter of 10 found to be best;
+while (count < num_iter) 
     oldcentroids = centroids;
     clusters = cell(1, k);
     % assign data to centroids
