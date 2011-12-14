@@ -77,7 +77,9 @@ for i = 1:field_counts_size
         max_field_sum = field_counts{i, 3};
     end
 end
-%max_field_index;
+max_field_index
+max_field_count
+max_field_sum
 % Return the most popular class among the k nearest neighbors
 class = field_counts{max_field_index, 1};
 
