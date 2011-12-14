@@ -1,9 +1,12 @@
 %generates the input for Neural Network Analysis
 clear all;
-load mfcc_test_data;
+load mfcc_gztan_data
 
 NUM_COEFF = 15;
-NUM_GENRES = 7;
+NUM_GENRES = 4;
+
+%mfcc_cells = mfcc_cells_training400;
+
 
 m = size(mfcc_cells, 1);
 
@@ -24,7 +27,7 @@ for i = 1 : m
         max_all = cur_max;
     end  
     
-    nn_output(i, :) = genreToVector(mfcc_cells{i, 5}(1), NUM_GENRES);
+    nn_output(i, :) = genreToVector(mfcc_cells{i, 3}(1), NUM_GENRES);
     
     
 end
