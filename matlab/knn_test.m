@@ -21,5 +21,10 @@ end
 fprintf('classification:\n');
 fprintf('-------------------------\n');
 for i = 1:num_files
-  fprintf('title: %s, genre: %s\n', classified{i,1}, classified{i,2}{1});
+  if ~strcmp(classified{i, 1}, classified{i, 2})
+    fprintf('New disagreement. %s misidentified as ', cell2mat(classified{i, 1}));
+    classified{i, 2}
+    %fprintf('title: %s, genre: %s\n', ...
+    %    cell2mat(classified{i,1}), cell2mat(classified{i,2}{1}));
+  end
 end
