@@ -36,7 +36,7 @@ end
 % Count occurences of the field we're classifying
 field_counts = cell(k, 3);
 field_counts_size = 0;
-field_index = field_num + 2;
+field_index = field_num;
 for i = 1:k
     % First search to see if the field has already been seen, if so
     % increment.
@@ -77,9 +77,6 @@ for i = 1:field_counts_size
         max_field_sum = field_counts{i, 3};
     end
 end
-max_field_index
-max_field_count
-max_field_sum
 % Return the most popular class among the k nearest neighbors
 class = field_counts{max_field_index, 1};
 
