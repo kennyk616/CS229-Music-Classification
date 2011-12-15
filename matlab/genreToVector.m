@@ -1,27 +1,22 @@
 function [output] = genreToVector(genre, NUM_GENRES)
 
-%1000000: 'Alt. Rock'
-%0100000: 'Electronic'
-%0010000: 'Other'
-%0001000: 'Pop'
-%0000100: 'Pop.Rock'
-%0000010: 'R&B'
-%0000001: 'Rock'
+%1 -1 -1: 'classical'
+%-1 1 -1: 'jazz'
+%-1 -1 1: 'Other'
+%1 1 1: 'pop'
 
-genreMap = eye(NUM_GENRES);
-    if strcmp(genre, 'Alt. Rock')
+genreMap = [1 -1 -1 -1; -1 1 -1 -1; -1 -1 1 -1; -1 -1 -1 1];
+%genreMap = eye(4);
+    if strcmp(genre, 'classical')
         output = genreMap(1, :);
-    elseif strcmp(genre, 'Electronic')
+    elseif strcmp(genre, 'jazz')
         output = genreMap(2, :);
-    elseif strcmp(genre, 'Other')
+    elseif strcmp(genre, 'metal')
         output = genreMap(3, :);
-    elseif strcmp(genre, 'Pop')
-        output = genreMap(4, :);
-    elseif strcmp(genre, 'Pop.Rock')
-        output = genreMap(5, :);
-    elseif strcmp(genre, 'R&B')
-        output = genreMap(6, :);
+%    elseif strcmp(genre, 'pop')
+%        output = genreMap(4, :);
     else 
-        output = genreMap(7, :);
+        output = genreMap(4, :);
     end
+    
 end
