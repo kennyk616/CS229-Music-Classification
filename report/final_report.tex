@@ -1,8 +1,11 @@
 \documentclass{article} % For LaTeX2e
 
 
-\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
 \usepackage{url}
+\usepackage{multirow}
+\usepackage{rotating} % For having vertical text in the tables.
+
 \usepackage{nips/nips11submit_e,times}
 
 
@@ -16,14 +19,6 @@ Yang Hong \\
 \And
 Kenny Kao
 }
-
-% The \author macro works with any number of authors. There are two commands
-% used to separate the names and addresses of multiple authors: \And and \AND.
-%
-% Using \And between authors leaves it to \LaTeX{} to determine where to break
-% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
-% puts 3 of 4 authors names on the first line, and the last on the second
-% line, try using \AND instead of \And before the third author name.
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
@@ -45,9 +40,125 @@ Kenny Kao
 \input{text/problem_statement.txt}
 
 
-\subsection{Our Approach}
+\section{Our Approach}
 
 \subsection{Data Retrieval}
+
+\subsection{Data Process Overview}
+
+\subsection{Mel Frequency Cepstral Coefficients (MFCC)}
+
+
+\section{Techniques}
+
+\subsection{Kullback-Lieber (KL) Divergence}
+
+\subsection{k-Nearest Neighbors (k-NN)}
+
+\subsection{k-Means}
+
+\subsection{Multi-Class Support Vector Machine (DAG SVM)}
+
+\subsection{Neural Networks}
+
+
+\section{Results}
+
+% SVM and NN Results tables
+\begin{table}[h!]
+
+\begin{minipage}{.5\textwidth}\centering
+\caption{DAG SVM Results}
+\begin{tabular}{| c c | c c c c |}
+%\toprule
+\hline
+& & \multicolumn{4}{| c |}{Actual} \\
+& & Classical & Jazz & Metal & Pop \\
+\hline
+\multirow{4}{*}{\begin{sideways}Predicted\end{sideways}}
+& Classical & 29 & 4 & 1 & 1 \\
+& Jazz & 1 & 20 & 1 & 0 \\
+& Metal & 0 & 4 & 26 & 0 \\
+& Pop & 0 & 2 & 2 & 29 \\
+%\bottomrule
+\hline
+\multicolumn{2}{| c |}{Accuracy} & 97\% & 67\% & 87\% & 97\% \\
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{.5cm}
+\begin{minipage}{.5\textwidth}\centering
+\caption{Neural Network Results}
+\begin{tabular}{| c c | c c c c |}
+%\toprule
+\hline
+& & \multicolumn{4}{| c |}{Actual} \\
+& & Classical & Jazz & Metal & Pop \\
+\hline
+\multirow{4}{*}{\begin{sideways}Predicted\end{sideways}}
+& Classical & 14 & 0 & 0 & 0 \\
+& Jazz & 1 & 12 & 4 & 0 \\
+& Metal & 0 & 0 & 13 & 0 \\
+& Pop & 1 & 0 & 0 & 19 \\
+%\bottomrule
+\hline
+\multicolumn{2}{| c |}{Accuracy} & 88\% & 100\% & 76\% & 100\% \\
+\hline
+\end{tabular}
+\end{minipage}
+
+\end{table}
+
+% kmeans and kNN Results tables
+\begin{table}[h!]
+
+\begin{minipage}{.5\textwidth}\centering
+\caption{k-Means Results}
+\begin{tabular}{| c c | c c c c |}
+%\toprule
+\hline
+& & \multicolumn{4}{| c |}{Actual} \\
+& & Classical & Jazz & Metal & Pop \\
+\hline
+\multirow{4}{*}{\begin{sideways}Predicted\end{sideways}}
+& Classical & 14 & 16 & 0 & 0 \\
+& Jazz & 2 & 27 & 1 & 0 \\
+& Metal & 0 & 0 & 27 & 3 \\
+& Pop & 0 & 1 & 1 & 28 \\
+%\bottomrule
+\hline
+\multicolumn{2}{| c |}{Accuracy} & 88\% & 61\% & 93\% & 90\% \\
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{.5cm}
+\begin{minipage}{.5\textwidth}\centering
+\caption{k-NN Results}
+\begin{tabular}{| c c | c c c c |}
+%\toprule
+\hline
+& & \multicolumn{4}{| c |}{Actual} \\
+& & Classical & Jazz & Metal & Pop \\
+\hline
+\multirow{4}{*}{\begin{sideways}Predicted\end{sideways}}
+& Classical & 26 & 9 & 0 & 2 \\
+& Jazz & 4 & 20 & 4 & 1 \\
+& Metal & 0 & 1 & 24 & 0 \\
+& Pop & 0 & 0 & 2 & 27 \\
+%\bottomrule
+\hline
+\multicolumn{2}{| c |}{Accuracy} & 87\% & 67\% & 80\% & 90\% \\
+\hline
+\end{tabular}
+\end{minipage}
+
+\end{table}
+
+\section{Conclusion}
+
+\subsection{Discussion}
+
+\subsection{Future Work}
 
 
 TODO alphabetically rearrange sources, and actually add all of them.
