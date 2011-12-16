@@ -47,9 +47,8 @@ if __name__=='__main__':
     SCALE_TO = int(sys.argv[3])
 
   files = []
-  os.chdir(sys.argv[1])
   for w in IMG_EXTENSIONS:
-    files.extend(glob.glob(w))
+    files.extend(glob.glob(sys.argv[1]+w))
   #Get absolute path
   path_to_store = os.path.abspath(sys.argv[2])
   #Append separator
@@ -71,5 +70,7 @@ if __name__=='__main__':
     print('%s resized from: (%d,%d) to -> (%d,%d)' % (infile, crop_box[3],
       crop_box[2], SCALE_TO, SCALE_TO));
 
-    filename,ext = os.path.splitext(infile)
+    filename = os.path.basename(infile)
+    filename,ext = os.path.splitext(filename)
+    print(path_to_store+filename.lower()+EXT_SUFFIX+ext)
     resized_img.save(path_to_store+filename.lower()+EXT_SUFFIX+ext)
