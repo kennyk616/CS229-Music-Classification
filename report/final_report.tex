@@ -41,16 +41,45 @@ Kenny Kao
 
 \subsection{Data Retrieval Process}
 
+\input{text/data_retrieval_process.tex}
+
 \subsection{Mel Frequency Cepstral Coefficients (MFCC)}
+
+\input{text/mfcc.tex}
+
+\begin{figure}[!hb]
+  \centering
+  \includegraphics[width=.88\textwidth]{images/our_approach-mfcc_flow.png}
+  \caption{MFCC Flow}
+  \label{fig:mfcc_flow}
+\end{figure}
 
 
 \section{Techniques}
 
 \subsection{Kullback-Lieber (KL) Divergence}
 
+\input{text/kldiv1.tex}
+
+\begin{figure}[!hb]
+  \centering
+  \includegraphics[width=.88\textwidth]{images/techniques-kldiv-kleqn.png}
+\end{figure}
+
+\input{text/kldiv2.tex}
+
+\begin{figure}[!hb]
+  \centering
+  \includegraphics[width=.38\textwidth]{images/techniques-kldiv-dkleqn.png}
+\end{figure}
+
 \subsection{k-Nearest Neighbors (k-NN)}
 
+\input{text/knn.tex}
+
 \subsection{k-Means}
+
+\input{text/kmeans.tex}
 
 \subsection{Multi-Class Support Vector Machine (DAG SVM)}
 
@@ -186,10 +215,13 @@ Vector & (1, 0, 0, 0) & (0, 1, 0, 0) & (0, 0, 1, 1) & (0, 0, 0, 1) \\
 
 \subsection{Discussion}
 
+\input{text/discussion.tex}
+
 \subsection{Future Work}
 
+\input{text/future_work.tex}
 
-TODO alphabetically rearrange sources, and actually add all of them.
+
 \begin{thebibliography}{9}
 \bibitem{dag}
   \emph{Chen, P., Liu, S.}.
@@ -200,6 +232,23 @@ TODO alphabetically rearrange sources, and actually add all of them.
   \emph{Marsyas}.
   "Data Sets"
   \url{http://marsysas.info/download/data\_sets}.
+
+\bibitem{kldiv}
+  \emph{Mandel, M., Ellis, D.}.
+  "Song-Level Features and SVMs for Music Classification"
+  \url{http://www.ee.columbia.edu/~dpwe/pubs/ismir05-svm.pdf}.
+
+\bibitem{nn}
+  \emph{Li, T., Chan, A., Chun, A.}.
+  "Automatic Musical Pattern Feature Extraction Using Convolutional Neural Network."
+  IMECS 2010.
+  \url{http://www.iaeng.org/publication/IMECS2010/IMECS2010\_pp546-550.pdf}.
+
+\bibitem{general}
+  \emph{Fu, A., Lu, G., Ting, K.M., Zhang, D.}.
+  "A Survey of Audio-Based Music Classification and Annotation"
+  IEEE Transactions on Multimedia.
+  \url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5664796&tag=1}.
 
 \end{thebibliography}
 
