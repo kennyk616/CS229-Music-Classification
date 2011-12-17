@@ -14,9 +14,12 @@ function image_cells = get_image_features(CSV_FILE_PATH)
 
 addpath('../');
 
+NUM_BINS = 6;
+
 fid = fopen(CSV_FILE_PATH);
+CSV_FILE_PATH
 csv_data = textscan(fid, '%s %s', 'Delimiter', '|', 'CollectOutput', 1);
-csv_data = csv_data{1};
+$csv_data = csv_data{1};
 fclose(fid);
 
 [numRows numCols] = size(csv_data);
@@ -24,11 +27,11 @@ image_cells = cell(numRows-1, 1 + numCols);
 
 for row = 2:numRows
     fprintf('Image # %d\n', row - 1);
-    cur_image = csv_data(row, :);
+    cur_image = csv_data(row, :)
 
     % Record the processed Mellin 2D of the song
-    image_path = cell2mat(cur_image(1, 1));
-    mellin_mat = mellin2d(image_path);  
+    image_path = cell2mat(cur_image(1, 1))
+    mellin_mat = mellin2d(imread(image_path), NUM_BINS);
     image_cells{row-1, 1} = mellin_mat;
 
     % Record image name (ie im.jpg)
@@ -37,6 +40,5 @@ for row = 2:numRows
     fprintf('Appended ??, %s\n', char(image_cells{row-1, 2}));
 end
 
-end
-
 rmpath('../');
+end
