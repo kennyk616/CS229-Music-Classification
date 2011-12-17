@@ -1,24 +1,31 @@
 % 2D mellin transform for image feature extraction
-function MELLIN_matrix = mellin2d(img_file_name)
+function MELLIN_matrix = mellin2d(I, NUM_BINS)
 % 2D Mellin-cepstrum feature extraction algorithm for images
 %
-% See also: logpolar.m, mellin_test.m, mfcc.m
+% I is a NxN square grayscale matrix, where N = 2^r
+% NUM_BINS is the # of bins in one direction, must be even
+% MELLIN_matrix is the NUM_BINSxNUM_BINS square matrix
+%
+% Example:
+%   img_file_name = 'nature1.jpg';
+%   I = imread(img_file_name);
+%   NUM_BINS = 8;  
+%   MELLIN_matrix = mellin2d(I, NUM_BINS);
+%
+% See also: logpolar.m, mellinbins.m, mellin_test.m
 %
 
-
-% img_file_name = 'nature1.jpg';
-I_orig = imread(img_file_name);
-I = rgb2gray(I_orig);
+% frequency domain
+I = rgb2gray(I);  % uint8 to double
+I = im2double(I);
 I = fft2(I);  % 2D DFT
-[h, w] = size(I);
-H = hpf2d(h, w);
-I = H.*abs(I);  % convolve HPF w/ real FFT of I
+
+% mellin bins
 I = log(abs(I));
-% -- mellin transform here -- %%
-P = logpolar(I);  % convert cartesian to log-polar coords
-P_ift = ifft2(P);
-P_ifta = abs(P_ift);
-MELLIN_matrix = P_ifta;  % temp for running fcn
-% figure, imshow(P_iftabs);
-% figure, imshow(P_iftabs.*500);
-% figure, imshow(I_orig);
+B = mellinbins(I, NUM_BINS);  
+
+% log polar coordinates
+P = logpolar(B);  
+P = dct2(P);
+MELLIN_matrix = P;
+
