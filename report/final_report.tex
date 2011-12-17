@@ -2,9 +2,11 @@
 
 
 \usepackage{booktabs}
+\usepackage[pdftex]{graphicx}
 \usepackage{url}
 \usepackage{multirow}
 \usepackage{rotating} % For having vertical text in the tables.
+\usepackage{wrapfig}
 
 \usepackage{nips/nips11submit_e,times}
 
@@ -31,20 +33,13 @@ Kenny Kao
 \maketitle
 
 
-\section{Motivation}
-
-\subsection{Introduction}
-\input{text/introduction.txt}
-
-\subsection{Problem Statement}
-\input{text/problem_statement.txt}
+\section{Introduction}
+\input{text/introduction.tex}
 
 
 \section{Our Approach}
 
-\subsection{Data Retrieval}
-
-\subsection{Data Process Overview}
+\subsection{Data Retrieval Process}
 
 \subsection{Mel Frequency Cepstral Coefficients (MFCC)}
 
@@ -59,13 +54,43 @@ Kenny Kao
 
 \subsection{Multi-Class Support Vector Machine (DAG SVM)}
 
+\begin{minipage}{.5\textwidth}\centering
+%\begin{wrapfigure}{r}{0.5\textwidth}
+%\begin{figure}
+  %\centering
+  \includegraphics[width=.58\textwidth]{images/techniques-dag-example.png}
+
+  A directed acyclic graph of 2-class SVMs
+  %\caption{A directed acyclic graph of 2-class SVMs}
+%\end{figure}
+%\end{wrapfigure}
+\end{minipage}
+\begin{minipage}{.5\textwidth}%\centering
+\input{text/dag.tex}
+\end{minipage}
+
+
 \subsection{Neural Networks}
+
+\input{text/nn1.tex}
+
+\begin{center}
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+Genre & Classical & Jazz & Metal & Pop \\
+\hline
+Vector & (1, 0, 0, 0) & (0, 1, 0, 0) & (0, 0, 1, 1) & (0, 0, 0, 1) \\
+\hline
+\end{tabular}
+\end{center}
+
+\input{text/nn2.tex}
 
 
 \section{Results}
 
 % SVM and NN Results tables
-\begin{table}[h!]
+\begin{table}[!ht]
 
 \begin{minipage}{.5\textwidth}\centering
 \caption{DAG SVM Results}
@@ -110,7 +135,7 @@ Kenny Kao
 \end{table}
 
 % kmeans and kNN Results tables
-\begin{table}[h!]
+\begin{table}[!ht]
 
 \begin{minipage}{.5\textwidth}\centering
 \caption{k-Means Results}
@@ -153,6 +178,9 @@ Kenny Kao
 \end{minipage}
 
 \end{table}
+
+\input{text/results.tex}
+
 
 \section{Conclusion}
 

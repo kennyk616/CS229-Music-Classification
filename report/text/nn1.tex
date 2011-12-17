@@ -1,0 +1,4 @@
+We tried neural networks because it has proved generally successful in many machine learning problems.
+We first pre-process the input data by combining the mean vector and the top half of the covariance matrix (since it is symmetric) into one feature vector. 
+As a result, we get $15 + (1+15)*\frac{15}{2}$ features for each song. 
+We then process the output data by assigning each genre to an element in the set of the standard orthonormal basis in $R^4$ for our four genres, as shown in the table below:
