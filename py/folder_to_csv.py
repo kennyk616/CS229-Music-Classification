@@ -18,6 +18,7 @@ Defaults:
 
 from glob import iglob
 from os import path
+import re
 import sys
 
 from lib229 import open_file_to_write
@@ -37,7 +38,7 @@ ofile = open_file_to_write(path.abspath(ofile_name))
 if ofile is None:
     print 'Unable to open output file.'
     sys.exit()
-ofile.write('path|filename')
+ofile.write('path|image_genre\n')
 
 # Iterate over input files, writing their filename and genre.
 for ifile_path in ifile_paths:
@@ -52,7 +53,13 @@ for ifile_path in ifile_paths:
         # Write path and filename to output file.
         ofile.write(path.abspath(ifile_name))
         ofile.write('|')
-        ofile.write(path.basename(ifile_name))
+
+        # Write the image genre
+        filename_root = path.basename(ifile_root)
+        digit_index = re.search('\d', filename_root)
+        image_genre = filename_root[:digit_index.start()];
+
+        ofile.write(image_genre)
         ofile.write('\n')
 ofile.close()
 print 'Done.'

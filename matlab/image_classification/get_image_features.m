@@ -19,11 +19,11 @@ NUM_BINS = 6;
 fid = fopen(CSV_FILE_PATH);
 CSV_FILE_PATH
 csv_data = textscan(fid, '%s %s', 'Delimiter', '|', 'CollectOutput', 1);
-$csv_data = csv_data{1};
+csv_data = csv_data{1};
 fclose(fid);
 
 [numRows numCols] = size(csv_data);
-image_cells = cell(numRows-1, 1 + numCols);
+image_cells = cell(numRows-1, numCols);
 
 for row = 2:numRows
     fprintf('Image # %d\n', row - 1);
