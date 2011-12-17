@@ -60,6 +60,10 @@ for ifile_path in ifile_paths:
         image_genre = filename_root[:digit_index.start()];
 
         ofile.write(image_genre)
+        ofile.write('|')
+
+        # Write the filename
+        ofile.write(path.basename(ifile_name))
         ofile.write('\n')
 ofile.close()
 print 'Done.'

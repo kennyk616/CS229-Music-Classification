@@ -18,7 +18,7 @@ NUM_BINS = 6;
 
 fid = fopen(CSV_FILE_PATH);
 CSV_FILE_PATH
-csv_data = textscan(fid, '%s %s', 'Delimiter', '|', 'CollectOutput', 1);
+csv_data = textscan(fid, '%s %s %s', 'Delimiter', '|', 'CollectOutput', 1);
 csv_data = csv_data{1};
 fclose(fid);
 
@@ -36,6 +36,9 @@ for row = 2:numRows
 
     % Record image name (ie im.jpg)
     image_cells{row-1, 2} = cur_image(1, 2);
+
+    % Recore image genre
+    image_cells{row-1, 3} = cur_image(1, 3);
 
     fprintf('Appended ??, %s\n', char(image_cells{row-1, 2}));
 end
