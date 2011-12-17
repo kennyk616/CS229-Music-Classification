@@ -1,5 +1,5 @@
 function [clusters, centroids] = kmeans(features, k, num_iter, type)
-% [CLUSTERS, CENTROIDS] = KMEANS(MFCC, K, NUM_ITER)
+% [CLUSTERS, CENTROIDS] = KMEANS(MFCC, K, NUM_ITER, TYPE)
 %
 % k-means clustering (unsupervised learning)
 %
@@ -8,6 +8,7 @@ function [clusters, centroids] = kmeans(features, k, num_iter, type)
 % NUM_ITER is the number of iterations to update centroids
 % CLUSTERS are the data element indices in each cluster
 % CENTROIDS are the average centers (represented like a feature) for each cluster
+% TYPE is 'songs' or 'images', specifies the data type we are clustering
 %
 % Algorithm:
 %    1. init cluster centroids (mu)

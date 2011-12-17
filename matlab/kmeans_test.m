@@ -1,9 +1,10 @@
-function kmeans_test(k, num_iter)
-% KMEANS_TEST(K, NUM_ITER)
+function kmeans_test(k, num_iter, type)
+% KMEANS_TEST(K, NUM_ITER, TYPE)
 %
 % Testing k-means algorithm on 120 songs:
 % K is number of genres to cluster songs into
 % NUM_ITER is the number of iterations to update centroids
+% TYPE is 'songs' or 'images' to train/test classification on
 %
 % Outputs timing, genre spread, and statistics for songs in each cluster.
 % 
@@ -14,42 +15,78 @@ function kmeans_test(k, num_iter)
 % See also: kmeans_eval.m, kmeans.m
 %
 
-% train k-means to get cluster centroids
-load mfcc_training_data400;
-mfcc = mfcc_cells_training400;
+if (strcmp(type, 'songs'))
+    % train k-means to get cluster centroids
+    load mfcc_training_data400;
+    mfcc = mfcc_cells_training400;
 
-tic; fprintf('\nAnalysis time for kmeans, k = %d...',k);
-[~, centroids] = kmeans(mfcc, k, num_iter);
-t = toc; fprintf('%5.2f sec\n',t); % 5 sec for num_iter = 10
+    tic; fprintf('\nAnalysis time for kmeans, k = %d...',k);
+    [~, centroids] = kmeans(mfcc, k, num_iter);
+    t = toc; fprintf('%5.2f sec\n',t); % 5 sec for num_iter = 10
 
-genres = {'classical', 'jazz', 'metal', 'pop'};
-fprintf('Cluster songs into %d genres:\n', k);
-fprintf('%s %s %s %s\n\n', genres{:});
+    genres = {'classical', 'jazz', 'metal', 'pop'};
+    fprintf('Cluster songs into %d genres:\n', k);
+    fprintf('%s %s %s %s\n\n', genres{:});
 
-% classify test data using trained k-means clustering
-load mfcc_testing_data400;
-mfcc = mfcc_cells_testing400;
-num_songs = size(mfcc,1);  % # songs (120)
-clusters = cell(1, k);
-% assign data to centroids
-allDist = zeros(1, k);
-for song = 1:num_songs
-    % classify: calculate dist from song to each centroid
-    mu_song = mfcc{song, 1}; 
-    covar_song = mfcc{song, 2};
-    for cent = 1:k
-        mu_cent = centroids{cent, 1};
-        covar_cent = centroids{cent, 2};
-        allDist(cent) = KLdiv(mu_song', covar_song, mu_cent', covar_cent);
+    % classify test data using trained k-means clustering
+    load mfcc_testing_data400;
+    mfcc = mfcc_cells_testing400;
+    num_songs = size(mfcc,1);  % # songs (120)
+    clusters = cell(1, k);
+    % assign data to centroids
+    allDist = zeros(1, k);
+    for song = 1:num_songs
+        % classify: calculate dist from song to each centroid
+        mu_song = mfcc{song, 1}; 
+        covar_song = mfcc{song, 2};
+        for cent = 1:k
+            mu_cent = centroids{cent, 1};
+            covar_cent = centroids{cent, 2};
+            allDist(cent) = KLdiv(mu_song', covar_song, mu_cent', covar_cent);
+        end
+        [~, cent_idx] = min(allDist);
+        clusters{1, cent_idx} = [clusters{1, cent_idx} song];  % assign song to closest centroid
     end
-    [~, cent_idx] = min(allDist);
-    clusters{1, cent_idx} = [clusters{1, cent_idx} song];  % assign song to closest centroid
+
+    % evaluate and print classification results
+    kmeans_eval(genres, mfcc, clusters);
+    
+elseif (strcmp(type, 'images'))
+    
+    % train k-means to get cluster centroids
+    load image_cells;
+    mellin = image_cells;
+ 
+    tic; fprintf('\nAnalysis time for kmeans, k = %d...',k);
+    [~, centroids] = kmeans(mellin, k, num_iter);
+    t = toc; fprintf('%5.2f sec\n',t); 
+
+    genres = {'classical', 'jazz', 'metal', 'pop'};
+    fprintf('Cluster songs into %d genres:\n', k);
+    fprintf('%s %s %s %s\n\n', genres{:});
+
+    % classify test data using trained k-means clustering
+    num_images = size(mellin,1);  % # songs (120)
+    clusters = cell(1, k);
+    % assign data to centroids
+    allDist = zeros(1, k);
+    for image = 1:num_images
+        % calculate dist from song to each centroid
+        mel_image = mellin{image, 1}; 
+        for cent = 1:k
+            mel_cent = centroids{cent, 1};
+            norm_dist = norm(mel_image - mel_cent, 'fro'); %2-norm or frobenius?
+            allDist(cent) = norm_dist;
+        end
+        [~, cent_idx] = min(allDist);
+        clusters{1, cent_idx} = [clusters{1, cent_idx} image];  % assign image to closest centroid
+    end
+
+    % evaluate and print classification results
+    kmeans_eval(genres, mellin, clusters);
 end
 
-% evaluate and print classification results
-kmeans_eval(genres, mfcc, clusters);
-
-% ---- RESULTS: (final statistics at bottom) ---- %
+% ---- RESULTS for song genres: (final statistics at bottom) ---- %
 %{
 kmeans_test(4,10);
 
